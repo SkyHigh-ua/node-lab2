@@ -12,8 +12,8 @@ let routeHandlers;
 
 if (isProduction) {
     routeHandlers = {
-        '/': import('./routes/index.js'),
-        '/route': import('./routes/route/index.js'),
+        '/': await import('./routes/index.js'),
+        '/route': await import('./routes/route/index.js'),
     };
 }
 
