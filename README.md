@@ -15,6 +15,8 @@ Server should include simple router, write it yourself. Please add 3-6 routes.
 
 - change default loader to ECMAScript module loader.
 - support different HTTP Methods (POST, GET, OPTIONS) for one route
-- support 2+ different content types (json, xml, urlencode)
+  - / - `GET/POST/OPTIONS`
+  - /route - `GET/POST/OPTIONS`
+- support 2+ different content types (json, urlencode)
 - follow specification for JSON: https://jsonapi.org/
 - handle graceful shutdown
