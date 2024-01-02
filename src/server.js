@@ -6,7 +6,7 @@ const server = http.createServer(async (req, res) => {
   try {
     const { url, method } = req;
     if (url && method) {
-      const routePath = `./routes${url !== '/' ? url : ''}/index.js`.replace(path.sep, "/");
+      const routePath = path.join(__dirname, 'routes', url !== '/' ? url : '', 'index.js');
       const route = await import(routePath);
       if (route[method]) {
         const body = await parseBody(req);
