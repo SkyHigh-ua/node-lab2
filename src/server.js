@@ -21,7 +21,7 @@ const server = http.createServer(async (req, res) => {
     if (error instanceof Error) {
       if (error.code === 'ERR_MODULE_NOT_FOUND') {
         res.writeHead(404);
-        res.end("Route not found");
+        res.end(`Route not found: ${error.message}`);
       } else {
           res.writeHead(500);
           res.end(`Error: ${error.message}`);
