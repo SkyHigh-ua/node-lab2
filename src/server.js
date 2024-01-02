@@ -2,6 +2,9 @@ import http from "http";
 import { parseBody } from "./utils.js";
 import path from "path";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const server = http.createServer(async (req, res) => {
   try {
     const { url, method } = req;
