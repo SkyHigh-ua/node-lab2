@@ -6,12 +6,28 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+const isProduction = process.env.NODE_ENV === 'production';
+
+let routeHandlers;
+
+if (isProduction) {
+    routeHandlers = {
+        '/': import('./routes/index.js'),
+        '/route': import('./routes/route/index.js'),
+    };
+}
+
 const server = http.createServer(async (req, res) => {
   try {
     const { url, method } = req;
+    let route;
     if (url && method) {
-      const routePath = path.join(__dirname, 'routes', url !== '/' ? url : '', 'index.js');
-      const route = await import(routePath);
+      if (isProduction) {
+        route = routeHandlers[url];
+      } else {
+        const routePath = path.join(__dirname, 'routes', url !== '/' ? url : '', 'index.js');
+        route = await import(routePath);
+      }
       if (route[method]) {
         const body = await parseBody(req);
         route[method](req, res, body);
