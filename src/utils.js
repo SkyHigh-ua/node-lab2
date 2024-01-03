@@ -17,6 +17,6 @@ export async function parseBody(req) {
     case "application/x-www-form-urlencoded":
       return parseUrlEncoded(body);
     default:
-      throw new Error("Content type is not supported")
+      return "Content type is not supported";
   }
 }
