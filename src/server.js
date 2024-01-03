@@ -13,7 +13,8 @@ let routeHandlers;
 if (isProduction) {
     routeHandlers = {
         '/': await import('./routes/index.js'),
-        '/route': await import('./routes/route/index.js'),
+        '/route1': await import('./routes/route1/index.js'),
+        '/route2/subroute': await import('./routes/route2/subroute/index.js'),
     };
 }
 
@@ -23,6 +24,9 @@ const server = http.createServer(async (req, res) => {
     let route;
     if (url && method) {
       if (isProduction) {
+        if (!(url in routeHandlers)) {
+          throw new Error("Invalid route");
+        }
         route = routeHandlers[url];
       } else {
         const routePath = path.join(__dirname, 'routes', url !== '/' ? url : '', 'index.js');
